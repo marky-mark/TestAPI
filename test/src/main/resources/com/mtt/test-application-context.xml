@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		                   http://www.springframework.org/schema/context
+		                   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		                   http://www.springframework.org/schema/data/jpa
+		                   http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+		                   http://www.springframework.org/schema/tx
+		                   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <context:property-placeholder
+            location="classpath:/test-application.properties"
+            ignore-resource-not-found="true"
+            system-properties-mode="OVERRIDE"/>
+
+    <context:annotation-config/>
+    <tx:annotation-driven/>
+
+    <context:component-scan base-package="com.mtt.service"/>
+    <context:component-scan base-package="com.mtt.event"/>
+    <context:component-scan base-package="com.mtt.email"/>
+    <context:component-scan base-package="com.mtt.cookies"/>
+    <context:component-scan base-package="com.mtt.test"/>
+    <!--<context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />-->
+
+    <jpa:repositories base-package="com.mtt.repository"/>
+    <!--<jpa:auditing auditor-aware-ref="securityServiceImpl"/>-->
+
+    <import resource="classpath:/META-INF/email-context.xml"/>
+    <import resource="classpath:/META-INF/executer-context.xml" />
+
+    <bean id="testDatasource" class="org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean">
+        <property name="databaseType" value="H2"/>
+    </bean>
+
+    <bean id="testDatabaseTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="testDatasource"/>
+    </bean>
+
+    <bean id="testJpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="springLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="testDatasource"/>
+        <property name="changeLog" value="classpath:com/mtt/liquibase/test/changelog-test.xml"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="testDatasource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="H2"/>
+                <property name="showSql" value="false"/>
+            </bean>
+        </property>
+        <property name="persistenceUnitName" value="mtt.persistence"/>
+    </bean>
+
+</beans>

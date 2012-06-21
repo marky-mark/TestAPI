@@ -6,7 +6,11 @@
 
     <groupId>TestAPI</groupId>
     <artifactId>TestAPI</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>test</module>
+    </modules>
 
     <properties>
         <spring.version>3.1.0.RELEASE</spring.version>
