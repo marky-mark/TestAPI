@@ -10,6 +10,7 @@
     <version>1.0</version>
     <modules>
         <module>test</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -154,16 +155,16 @@
                 <!--<artifactId>db</artifactId>-->
                 <!--<version>${project.version}</version>-->
             <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>${project.groupId}</groupId>-->
-                <!--<artifactId>common</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-                <!--<groupId>${project.groupId}</groupId>-->
-                <!--<artifactId>test</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--<dependency>-->
                 <!--<groupId>${project.groupId}</groupId>-->
                 <!--<artifactId>core</artifactId>-->
