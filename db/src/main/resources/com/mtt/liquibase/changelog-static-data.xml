@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="insert-default-user" author="mark" dbms="mysql">
+        <insert tableName="usr">
+            <column name="id" value="1"/>
+            <column name="usrname" value="test"/>
+            <!--Set the password to encrypted value of 'abc123'-->
+            <column name="passwrd" value="FzLJc09IApq0Vm7lqfFjQ8UKL4n6xB8I9VtKEPrQGSY="/>
+            <column name="first_name" value="first"/>
+            <column name="last_name" value="last"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-tasks" author="mark" dbms="mysql">
+        <insert tableName="task">
+            <column name="id" value="1"/>
+            <column name="title" value="test1"/>
+            <column name="description" value="this is my first description"/>
+            <column name="usr_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-default-for-usr-added-fields" author="mkelly" dbms="mysql">
+        <update tableName="usr">
+            <column name="first_name" value="unknown"/>
+            <where>
+                first_name is NULL or first_name = '';
+            </where>
+        </update>
+        <update tableName="usr">
+            <column name="last_name" value="unknown"/>
+            <where>
+                last_name is NULL or last_name = '';
+            </where>
+        </update>
+        <update tableName="usr">
+            <column name="status" value="ACTIVE"/>
+            <where>
+                status is NULL or status = '';
+            </where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

@@ -11,6 +11,7 @@
     <modules>
         <module>test</module>
         <module>common</module>
+        <module>db</module>
     </modules>
 
     <properties>
@@ -150,11 +151,11 @@
                 <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>${project.groupId}</groupId>-->
-                <!--<artifactId>db</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>common</artifactId>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <!--REMEMBER: 'create database mtt default character set utf8;'-->
+
+    <changeSet id="1" author="mark">
+
+      <createTable tableName="usr">
+         <column name="id" type="int" autoIncrement="true">
+             <constraints primaryKey="true" nullable="false"/>
+         </column>
+         <column name="usrname" type="varchar(50)">
+             <constraints nullable="false" unique="true"/>
+         </column>
+         <column name="passwrd" type="varchar(100)">
+             <constraints nullable="false"/>
+         </column>
+      </createTable>
+
+      <createTable tableName="task">
+          <column name="id" type="int" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+          </column>
+          <column name="title" type="varchar(100)"/>
+          <column name="description" type="varchar(500)"/>
+          <column name="usr_id" type="int">
+              <constraints nullable="false"/>
+          </column>
+          <column name="creation_date" type="timestamp" defaultValueDate="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+      </createTable>
+
+      <addForeignKeyConstraint constraintName="fk_task_usr"
+                                 baseTableName="task" baseColumnNames="usr_id"
+                                 referencedTableName="usr" referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="add-checkbox-function" author="mark">
+        <addColumn tableName="task">
+            <column name="checked" type="TINYINT(1)" defaultValue="0">
+                 <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-extra-user-fields" author="mark">
+        <addColumn tableName="usr">
+            <column name="status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_phone" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="activation-key-structure" author="mark" >
+        <createTable tableName="usr_activation_key">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="activation_key" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="expiry_date" type="timestamp" defaultValueDate="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usr_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_activation_key_usr"
+                                 baseTableName="usr_activation_key"
+                                 baseColumnNames="usr_id"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"/>
+
+        <createIndex tableName="usr_activation_key" indexName="idx_usr_activation_key_activation_key">
+            <column name="activation_key"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
