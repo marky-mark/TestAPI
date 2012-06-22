@@ -84,6 +84,7 @@ public final class TaskServiceImpl implements TaskService {
             task.setTitle(createTaskRequest.getTitle());
             task.setDescription(createTaskRequest.getDescription());
             task.setUser(user);
+            task.setChecked(createTaskRequest.isChecked());
             task.setCreatedDate(new Date(System.currentTimeMillis()));
             taskRepository.save(task);
 

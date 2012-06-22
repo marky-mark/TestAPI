@@ -1,5 +1,7 @@
 package com.mtt.api.model;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 public class APITask {
@@ -10,7 +12,7 @@ public class APITask {
 
     private String description;
 
-    private Date createdDate;
+    private DateTime createdDate;
 
     private boolean checked;
 
@@ -40,12 +42,12 @@ public class APITask {
         this.description = description;
     }
 
-    public Date getCreatedDate() {
+    public DateTime getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+        this.createdDate = new DateTime(createdDate);
     }
 
     public boolean isChecked() {

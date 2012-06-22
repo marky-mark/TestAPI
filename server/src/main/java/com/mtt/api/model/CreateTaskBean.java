@@ -1,12 +1,11 @@
-package com.mtt.service.request;
+package com.mtt.api.model;
 
 import com.mtt.validation.NotHtml;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
 
-public class CreateTaskRequest {
+public class CreateTaskBean {
 
     @NotBlank(message = "task must have a title")
     @Size(min = 1, max = 100, message = "title must be between 1 and 100 characters long")
@@ -18,10 +17,13 @@ public class CreateTaskRequest {
     @NotHtml(message = "task description cannot contain html tags")
     private String description;
 
-    private boolean checked;
+    public CreateTaskBean() {
+    }
 
-    @JsonProperty("user_id")
-    private Long userId;
+    public CreateTaskBean(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     public String getTitle() {
         return title;
@@ -37,21 +39,5 @@ public class CreateTaskRequest {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 }
