@@ -54,4 +54,12 @@
         <property name="shared" value="true"/>
     </bean>
 
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.mtt.api.converter.TaskToAPITaskConverter"/>
+            </set>
+        </property>
+    </bean>
+
 </beans>
