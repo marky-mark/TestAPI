@@ -100,4 +100,12 @@ public class TaskController extends BaseExceptionHandlingController {
             throw new UpdateTaskFailedException(e, createTaskRequest);
         }
     }
+
+
+    @RequestMapping(value = "/task/delete/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public void deleteTask(@PathVariable("id") String id) {
+        taskService.delete(new Long(id));
+    }
 }
