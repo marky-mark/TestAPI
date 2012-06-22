@@ -2,8 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/task"
        xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -11,10 +9,6 @@
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		                   http://www.springframework.org/schema/context
 		                   http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		                   http://www.springframework.org/schema/util
-		                   http://www.springframework.org/schema/util/spring-util-2.0.xsd
-		                   http://www.springframework.org/schema/mvc
-		                   http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		                   http://www.springframework.org/schema/task
 		                   http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		                   http://www.springframework.org/schema/data/jpa
@@ -22,21 +16,24 @@
 		                   http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
                            http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
 
+    <context:property-placeholder
+            location="file:/etc/testapi/testapi.properties,${testapi.config.dir:file:${user.home}/.testapi/config}/testapi.properties"
+            ignore-resource-not-found="true"
+            system-properties-mode="OVERRIDE"/>
+
     <context:annotation-config/>
     <tx:annotation-driven/>
 
     <context:component-scan base-package="com.mtt.service"/>
     <context:component-scan base-package="com.mtt.event"/>
     <context:component-scan base-package="com.mtt.email"/>
-    <context:component-scan base-package="com.mtt.security" scoped-proxy="targetClass" />
 
     <jpa:repositories base-package="com.mtt.repository"/>
     <ehcache:annotation-driven create-missing-caches="true"/>
 
-    <import resource="/META-INF/datasource-context.xml"/>
-    <import resource="/META-INF/executer-context.xml" />
-    <import resource="/META-INF/email-context.xml"/>
-
+    <import resource="datasource-context.xml"/>
+    <import resource="executer-context.xml" />
+    <import resource="email-context.xml"/>
 
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
@@ -50,6 +47,11 @@
                 <ref bean="stringHttpMessageConverter"/>
             </list>
         </property>
+    </bean>
+
+     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:/META-INF/ehcache.xml"/>
+        <property name="shared" value="true"/>
     </bean>
 
 </beans>

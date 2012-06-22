@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="java.io.tmpdir/mtt/cache/core"/>
+
+    <defaultCache
+            maxElementsInMemory="100"
+            eternal="false"
+            memoryStoreEvictionPolicy="LRU"/>
+
+    <!--Great for storing generated trees...just put (cacheName = "locationIdHierarchies", selfPopulating = true) over the function that
+    Generates the tree-->
+    <!--<cache name="locationIdHierarchies"-->
+           <!--maxElementsInMemory="10000"-->
+           <!--eternal="true"-->
+           <!--overflowToDisk="false"/>-->
+
+    <!--<cache name="cacheStringsMethod"-->
+           <!--maxElementsInMemory="10000"-->
+           <!--eternal="true"-->
+           <!--overflowToDisk="false"/>-->
+
+</ehcache>
