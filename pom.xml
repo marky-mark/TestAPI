@@ -15,6 +15,7 @@
         <module>core</module>
         <module>client</module>
         <module>server</module>
+        <module>model</module>
     </modules>
 
     <properties>
@@ -22,6 +23,8 @@
         <hibernate.version>3.5.6-Final</hibernate.version>
         <junit.version>4.8.2</junit.version>
         <shiro.version>1.2.0</shiro.version>
+        <rest.easy.version>2.3.0.GA</rest.easy.version>
+         <cucumber.jvm.version>1.0.9</cucumber.jvm.version>
 
         <mtt.jdbc.driver>com.mysql.jdbc.Driver</mtt.jdbc.driver>
         <mtt.jdbc.url>jdbc:mysql://localhost/mtt</mtt.jdbc.url>
@@ -157,6 +160,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -382,6 +390,11 @@
                 <artifactId>ehcache-spring-annotations</artifactId>
                 <version>1.1.2</version>
             </dependency>
+           <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
             <dependency>
                 <groupId>info.cukes</groupId>
                 <artifactId>cucumber-core</artifactId>
@@ -406,6 +419,36 @@
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>2.16.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-multipart-provider</artifactId>
+                <version>1.2.RC1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>${rest.easy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jackson-provider</artifactId>
+                <version>${rest.easy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>3.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
