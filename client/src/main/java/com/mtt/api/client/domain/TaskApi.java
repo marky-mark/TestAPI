@@ -1,8 +1,9 @@
-package com.mtt.api.client;
+package com.mtt.api.client.domain;
 
 import com.mtt.api.model.APITask;
 import com.mtt.service.request.CreateTaskRequest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -21,6 +22,7 @@ public interface TaskApi {
     @POST
     @Path("task")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public APITask createTask(CreateTaskRequest createTaskRequest);
 
     @PUT

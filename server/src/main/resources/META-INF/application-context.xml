@@ -64,4 +64,8 @@
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
+    <bean id="remoteApi" class="com.mtt.api.client.impl.RemoteTestApiFactoryBean">
+        <property name="baseUri" value="${mtt.api.host:http://localhost:9080/api}"/>
+    </bean>
+
 </beans>
