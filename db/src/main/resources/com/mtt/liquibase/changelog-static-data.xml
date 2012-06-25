@@ -51,8 +51,8 @@
     <changeSet id="add-a-test-api-key-entry" author="mkelly" dbms="mysql">
         <insert tableName="usr_key">
             <column name="id" value="1"/>
-            <column name="access_key" value="testAccessKey1234567"/>
-            <column name="private_key" value="testPrivateKey1234567"/>
+            <column name="access_key" value="66d4ad30f19511e0be500800200c9a66"/>
+            <column name="private_key" value="a5e19380f19511e0be500800200c9a66"/>
             <column name="usr_id" value="1"/>
         </insert>
     </changeSet>

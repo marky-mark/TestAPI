@@ -2,8 +2,10 @@ package com.mtt.api.client.impl;
 
 import com.mtt.api.client.TestAPI;
 import com.mtt.api.client.domain.TaskApi;
+import com.mtt.api.client.util.RequestSigningClientExecutor;
+import com.mtt.api.model.MTTApiKey;
+import org.apache.http.client.HttpClient;
 import org.jboss.resteasy.client.ProxyFactory;
-import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 public class RemoteTestApi implements TestAPI {
 
@@ -20,7 +22,12 @@ public class RemoteTestApi implements TestAPI {
     }
 
     public RemoteTestApi(String baseUri,
-            ApacheHttpClient4Executor client4Executor) {
-        taskApi = ProxyFactory.create(TaskApi.class, baseUri, client4Executor);
+                         MTTApiKey defaultApiKey,
+                         HttpClient httpClient) {
+
+        MTTApiRequestSigner requestSigner = new MTTApiRequestSigner(defaultApiKey);
+
+        //create the extended ApacheHttpClient4Executor with the request signer - this uses httpClient with RestEasy
+        taskApi = ProxyFactory.create(TaskApi.class, baseUri, new RequestSigningClientExecutor(httpClient, requestSigner));
     }
 }
