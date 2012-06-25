@@ -94,4 +94,27 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="add-api-key-set" author="mark" >
+        <createTable tableName="usr_key">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="access_key" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="private_key" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usr_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_api_key_usr"
+                                 baseTableName="usr_key"
+                                 baseColumnNames="usr_id"
+                                 referencedTableName="usr"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>
