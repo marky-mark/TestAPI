@@ -4,10 +4,12 @@ import com.mtt.domain.entity.User;
 import com.mtt.domain.entity.UserActivationKey;
 import com.mtt.domain.entity.UserStatus;
 import com.mtt.event.NewUserRegisteredEvent;
+import com.mtt.repository.ApiKeyRepository;
 import com.mtt.repository.UserActivationKeyRepository;
 import com.mtt.repository.UserRepository;
 import com.mtt.service.KeyGeneratorService;
 import com.mtt.service.RegistrationService;
+import com.mtt.service.SecurityService;
 import com.mtt.service.UserService;
 import com.mtt.service.event.EventService;
 import com.mtt.service.exception.UserActivationKeyExpired;
@@ -28,6 +30,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     private UserActivationKeyRepository userActivationKeyRepository;
 
     @Autowired
+    private ApiKeyRepository apiKeyRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -35,6 +40,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Override
     public UserActivationKey registerUser(CreateUserRequest userRequest) {
@@ -47,6 +55,10 @@ public class RegistrationServiceImpl implements RegistrationService {
         activationKey.initialise(user, keyGeneratorService);
 
         UserActivationKey userActivationKey = userActivationKeyRepository.save(activationKey);
+
+        if (user.getApiKeys().size() == 0) {
+            user.addApiKey(securityService.createApiKey(user));
+        }
 
         //fire event to send an email to the user
         eventService.publishAfterTransactionCommitted(new NewUserRegisteredEvent(this, userActivationKey));

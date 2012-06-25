@@ -50,6 +50,18 @@ public class ApiKey {
         return privateKey;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

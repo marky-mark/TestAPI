@@ -48,4 +48,13 @@
         </update>
     </changeSet>
 
+    <changeSet id="add-a-test-api-key-entry" author="mkelly" dbms="mysql">
+        <insert tableName="usr_key">
+            <column name="id" value="1"/>
+            <column name="access_key" value="testAccessKey1234567"/>
+            <column name="private_key" value="testPrivateKey1234567"/>
+            <column name="usr_id" value="1"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

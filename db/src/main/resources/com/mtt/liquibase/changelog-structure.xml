@@ -92,6 +92,9 @@
         <createIndex tableName="usr_activation_key" indexName="idx_usr_activation_key_activation_key">
             <column name="activation_key"/>
         </createIndex>
+        <addUniqueConstraint tableName="usr_activation_key"
+                             columnNames="activation_key"
+                             constraintName="usr_activation_key_unique_key"/>
     </changeSet>
 
     <changeSet id="add-api-key-set" author="mark" >
@@ -115,6 +118,11 @@
                                  baseColumnNames="usr_id"
                                  referencedTableName="usr"
                                  referencedColumnNames="id"/>
+
+        <createIndex tableName="usr_key" indexName="idx_usr_key_access_key">
+            <column name="access_key"/>
+        </createIndex>
+
     </changeSet>
 
 </databaseChangeLog>

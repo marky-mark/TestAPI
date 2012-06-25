@@ -27,6 +27,7 @@
     <context:component-scan base-package="com.mtt.service"/>
     <context:component-scan base-package="com.mtt.event"/>
     <context:component-scan base-package="com.mtt.email"/>
+    <context:component-scan base-package="com.mtt.util"/>
 
     <jpa:repositories base-package="com.mtt.repository"/>
     <ehcache:annotation-driven create-missing-caches="true"/>

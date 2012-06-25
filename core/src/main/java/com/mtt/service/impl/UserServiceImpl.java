@@ -74,7 +74,12 @@ public final class UserServiceImpl implements UserService {
         user.setPassword(createUserRequest.getPlainTextPassword());
         user.setTelephoneNumber(createUserRequest.getTelephoneNumber());
         user.setStatus(UserStatus.AWAITING_ACTIVATION);
-        userRepository.saveAndFlush(user);
+        initialiseUser(userRepository.saveAndFlush(user));
+        return user;
+    }
+
+    private User initialiseUser(User user) {
+        user.getApiKeys().size();
         return user;
     }
 }

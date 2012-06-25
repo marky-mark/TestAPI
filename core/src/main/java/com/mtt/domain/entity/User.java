@@ -4,14 +4,20 @@ package com.mtt.domain.entity;
 import com.mtt.security.HashedAndSaltedPassword;
 import org.springframework.util.Assert;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "usr")
@@ -43,6 +49,9 @@ public class User {
     @Column(name = "status", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserStatus status;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<ApiKey> apiKeys = new ArrayList<ApiKey>();
 
     public Long getId() {
         return id;
@@ -111,6 +120,21 @@ public class User {
      */
     public Boolean verifyPassword(String plaintextPassword) {
         return HashedAndSaltedPassword.comparePassword(plaintextPassword, this.password);
+    }
+
+    public List<ApiKey> getApiKeys() {
+        return Collections.unmodifiableList(apiKeys);
+    }
+
+    /**
+     * Add API key to user
+     * @param apiKey the api key to add
+     */
+    public void addApiKey(ApiKey apiKey) {
+        Assert.notNull(apiKey.getId());
+        if (!apiKeys.contains(apiKey)) {
+            apiKeys.add(apiKey);
+        }
     }
 
     @Override

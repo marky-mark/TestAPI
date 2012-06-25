@@ -11,4 +11,6 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 
     List<Task> findByUserId(@Param("userId") Long userId);
 
+    ApiKey findByAccessKey(String accessKey);
+
 }
