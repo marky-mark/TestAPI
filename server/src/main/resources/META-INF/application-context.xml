@@ -37,8 +37,13 @@
     <import resource="email-context.xml"/>
     <import resource="security-context.xml"/>
 
+    <bean id="omf" class="com.mtt.api.util.ObjectMapperFactory"/>
+    <bean id="om" factory-bean="omf" factory-method="create"/>
+
     <bean id="mappingJacksonHttpMessageConverter"
-          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="objectMapper" ref="om"/>
+    </bean>
 
     <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter"/>
 

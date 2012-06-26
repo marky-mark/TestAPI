@@ -19,10 +19,6 @@
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:/META-INF/ehcache.xml"/>
-    </bean>
-
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="platformRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
@@ -33,7 +29,7 @@
     <bean id="platformRealm" class="com.mtt.api.security.PlatformRealm" depends-on="userRepository">
         <property name="securityService" ref="securityServiceImpl"/>
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <property name="authorizationCachingEnabled" value="${gumtree.api.security.cache.enabled:true}"/>
+        <property name="authorizationCachingEnabled" value="${mtt.api.security.cache.enabled:true}"/>
     </bean>
 
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.AllowAllCredentialsMatcher"/>

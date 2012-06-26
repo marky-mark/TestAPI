@@ -17,10 +17,21 @@
             ignore-resource-not-found="true"
             system-properties-mode="OVERRIDE"/>
 
-    <mvc:annotation-driven/>
-
     <context:component-scan base-package="com.mtt.api.controller"/>
     <!--<context:component-scan base-package="com.mtt.converter"/>-->
+
+        <!-- This needs to be disabled so that we can define our own message converters on AnnotationMethodHandlerAdapter -->
+    <!-- TODO: Upgrade to Spring 3.1 so that we can configure mvc:annotation-driven directly! -->
+    <!--<mvc:annotation-driven/>-->
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <util:list id="beanList">
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+                <ref bean="stringHttpMessageConverter"/>
+            </util:list>
+        </property>
+    </bean>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="mediaTypes">
@@ -31,7 +42,9 @@
         <property name="defaultContentType" value="application/json"/>
         <property name="defaultViews">
             <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" >
+                    <property name="objectMapper" ref="om"/>
+                </bean>
             </list>
         </property>
     </bean>

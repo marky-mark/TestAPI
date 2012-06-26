@@ -6,6 +6,9 @@ import com.mtt.api.exception.UserNotAssociatedWithTaskException;
 import com.mtt.api.exception.ValidationException;
 import com.mtt.domain.exception.TaskNotFoundException;
 import com.mtt.domain.exception.UserNotFoundException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,16 +17,21 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BaseExceptionHandlingController {
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @ExceptionHandler(TaskNotFoundException.class)
     @ResponseBody
-    public final String handleTaskNotFoundException(TaskNotFoundException ex, HttpServletResponse response) {
+    public final String handleTaskNotFoundException(TaskNotFoundException ex, HttpServletResponse response)
+        throws Exception {
         RuntimeException rx = (RuntimeException) ex.getCause();
         return respond(HttpStatus.NOT_FOUND, response, "task not found");
     }
 
     @ExceptionHandler(CreateTaskFailedException.class)
     @ResponseBody
-    public final String handleCreateTaskFailedException(CreateTaskFailedException ex, HttpServletResponse response) {
+    public final String handleCreateTaskFailedException(CreateTaskFailedException ex, HttpServletResponse response)
+        throws Exception {
         RuntimeException rx = (RuntimeException) ex.getCause();
 
         if (rx instanceof ValidationException) {
@@ -37,7 +45,8 @@ public class BaseExceptionHandlingController {
 
     @ExceptionHandler(UpdateTaskFailedException.class)
     @ResponseBody
-    public final String handleUpdateTaskFailedException(UpdateTaskFailedException ex, HttpServletResponse response) {
+    public final String handleUpdateTaskFailedException(UpdateTaskFailedException ex, HttpServletResponse response)
+        throws Exception {
 
         RuntimeException rx = (RuntimeException) ex.getCause();
 
@@ -54,8 +63,8 @@ public class BaseExceptionHandlingController {
         return respond(HttpStatus.INTERNAL_SERVER_ERROR, response, "something went wrong");
     }
 
-    private String respond(HttpStatus httpStatus, HttpServletResponse response, String message) {
+    private String respond(HttpStatus httpStatus, HttpServletResponse response, String message) throws Exception {
         response.setStatus(httpStatus.value());
-        return message;
+        return objectMapper.writeValueAsString(new DateTime());
     }
 }
