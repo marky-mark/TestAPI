@@ -35,6 +35,7 @@
     <import resource="datasource-context.xml"/>
     <import resource="executer-context.xml" />
     <import resource="email-context.xml"/>
+    <import resource="security-context.xml"/>
 
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
