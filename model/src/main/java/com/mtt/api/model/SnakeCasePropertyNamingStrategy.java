@@ -1,4 +1,4 @@
-package com.mtt.api.util;
+package com.mtt.api.model;
 
 import org.codehaus.jackson.map.MapperConfig;
 import org.codehaus.jackson.map.PropertyNamingStrategy;

@@ -1,4 +1,4 @@
-package com.mtt.api.util;
+package com.mtt.api.model;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;

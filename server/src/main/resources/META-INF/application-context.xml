@@ -37,7 +37,7 @@
     <import resource="email-context.xml"/>
     <import resource="security-context.xml"/>
 
-    <bean id="omf" class="com.mtt.api.util.ObjectMapperFactory"/>
+    <bean id="omf" class="com.mtt.api.model.ObjectMapperFactory"/>
     <bean id="om" factory-bean="omf" factory-method="create"/>
 
     <bean id="mappingJacksonHttpMessageConverter"
