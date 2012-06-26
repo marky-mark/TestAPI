@@ -4,6 +4,7 @@ import com.mtt.domain.entity.ApiKey;
 import com.mtt.domain.entity.User;
 import com.mtt.repository.ApiKeyRepository;
 import com.mtt.service.SecurityService;
+import com.mtt.service.UserService;
 import com.mtt.util.RandomValueGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
@@ -21,6 +22,9 @@ public class SecurityServiceImpl implements SecurityService {
     @Autowired
     private RandomValueGenerator valueGenerator;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public ApiKey getApiKey(String accessKey) {
         return apiKeyRepository.findByAccessKey(accessKey);
@@ -34,5 +38,10 @@ public class SecurityServiceImpl implements SecurityService {
         apiKey.setUser(user);
 
         return apiKeyRepository.save(apiKey);
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userService.find(username);
     }
 }

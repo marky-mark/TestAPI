@@ -9,7 +9,8 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="filterChainDefinitions">
             <value>
-                /api/tasks/** = noSessionCreation, apiKeyFilter
+                /api/user/** = noSessionCreation, apiKeyFilter
+                /api/task/** = noSessionCreation, apiKeyFilter
             </value>
         </property>
     </bean>

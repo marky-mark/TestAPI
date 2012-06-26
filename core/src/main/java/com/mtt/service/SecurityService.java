@@ -20,4 +20,6 @@ public interface SecurityService {
      * @return an API key for the given user.
      */
     ApiKey createApiKey(User user);
+
+    User getUser(String username);
 }

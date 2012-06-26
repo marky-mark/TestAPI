@@ -115,6 +115,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
