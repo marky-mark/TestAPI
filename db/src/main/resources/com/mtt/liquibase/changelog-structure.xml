@@ -98,7 +98,7 @@
     </changeSet>
 
     <changeSet id="add-api-key-set" author="mark" >
-        <createTable tableName="usr_key">
+        <createTable tableName="api_key">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -114,12 +114,12 @@
         </createTable>
 
         <addForeignKeyConstraint constraintName="fk_api_key_usr"
-                                 baseTableName="usr_key"
+                                 baseTableName="api_key"
                                  baseColumnNames="usr_id"
                                  referencedTableName="usr"
                                  referencedColumnNames="id"/>
 
-        <createIndex tableName="usr_key" indexName="idx_usr_key_access_key">
+        <createIndex tableName="api_key" indexName="idx_api_key_access_key">
             <column name="access_key"/>
         </createIndex>
 

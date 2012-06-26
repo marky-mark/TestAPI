@@ -49,7 +49,7 @@
     </changeSet>
 
     <changeSet id="add-a-test-api-key-entry" author="mkelly" dbms="mysql">
-        <insert tableName="usr_key">
+        <insert tableName="api_key">
             <column name="id" value="1"/>
             <column name="access_key" value="66d4ad30f19511e0be500800200c9a66"/>
             <column name="private_key" value="a5e19380f19511e0be500800200c9a66"/>
