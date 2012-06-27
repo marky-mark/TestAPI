@@ -28,10 +28,11 @@ public interface TaskApi {
     @PUT
     @Path("/task/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APITask updateTask(@PathParam("id") String id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public APITask updateTask(@PathParam("id") Long id, CreateTaskRequest createTaskRequest);
 
     @PUT
     @Path("/task/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void deleteTask(@PathParam("id") String id);
+    public void deleteTask(@PathParam("id") Long id);
 }
