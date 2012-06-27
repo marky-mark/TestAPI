@@ -1,4 +1,4 @@
-package com.mtt.api.model;
+package com.mtt.api.model.json;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;

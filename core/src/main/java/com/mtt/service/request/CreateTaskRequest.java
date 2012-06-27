@@ -8,14 +8,14 @@ import javax.validation.constraints.Size;
 
 public class CreateTaskRequest {
 
-    @NotBlank(message = "task must have a title")
-    @Size(min = 1, max = 100, message = "title must be between 1 and 100 characters long")
-    @NotHtml(message = "task title cannot contain html tags")
+    @NotBlank(message = "task.create.title.blank")
+    @Size(min = 1, max = 100, message = "task.create.title.length")
+    @NotHtml(message = "task.create.title.html")
     private String title;
 
-    @NotBlank(message = "task must have a description")
-    @Size(min = 1, max = 100, message = "description must be between 1 and 100 characters long")
-    @NotHtml(message = "task description cannot contain html tags")
+    @NotBlank(message = "task.create.description.blank")
+    @Size(min = 1, max = 100, message = "task.create.description.length")
+    @NotHtml(message = "task.create.description.html")
     private String description;
 
     private boolean checked;

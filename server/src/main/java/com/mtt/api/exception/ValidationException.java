@@ -10,4 +10,8 @@ public class ValidationException extends RuntimeException {
     public ValidationException(Set<? extends ConstraintViolation<?>> violations) {
         this.violations = violations;
     }
+
+    public Set<? extends ConstraintViolation<?>> getViolations() {
+        return violations;
+    }
 }
