@@ -14,6 +14,11 @@
 
     <properties>
         <build.date>${maven.build.timestamp}</build.date>
+
+        <!--<mtt.jdbc.driver>com.mysql.jdbc.Driver</mtt.jdbc.driver>-->
+        <!--<mtt.jdbc.url>jdbc:mysql://localhost/moderation</mtt.jdbc.url>-->
+        <!--<mtt.jdbc.username>mtt</mtt.jdbc.username>-->
+        <!--<mtt.jdbc.password>mtt</mtt.jdbc.password>-->
     </properties>
 
     <build>
@@ -62,6 +67,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.liquibase</groupId>-->
+                <!--<artifactId>liquibase-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<changeLogFile>com/mtt/liquibase/test/changelog-test.xml</changeLogFile>-->
+                    <!--<driver>${mtt.jdbc.driver}</driver>-->
+                    <!--<url>${mtt.jdbc.url}</url>-->
+                    <!--<username>${mtt.jdbc.username}</username>-->
+                    <!--<password>${mtt.jdbc.password}</password>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

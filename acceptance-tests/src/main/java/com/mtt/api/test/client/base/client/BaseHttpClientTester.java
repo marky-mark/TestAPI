@@ -1,4 +1,4 @@
-package com.mtt.api.test;
+package com.mtt.api.test.client.base.client;
 
 import com.mtt.api.test.exception.TestExecutionException;
 import org.apache.http.HttpHost;
