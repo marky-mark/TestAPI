@@ -12,8 +12,61 @@
 
     <artifactId>server</artifactId>
 
+    <properties>
+        <build.date>${maven.build.timestamp}</build.date>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Build-Date>${build.date}</Build-Date>
+                            <Project-Version>${project.version}</Project-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!--Start up the Application as part of the integration Tests using a H2 database on port 8181-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <fork>true</fork>
+                            <useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
+                            <port>8181</port>
+                            <path>/</path>
+                            <warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
+                            <systemProperties>
+                                <mtt.jdbc.driver>org.h2.Driver</mtt.jdbc.driver>
+                                <mtt.jdbc.url>jdbc:h2:~/.mtt/db/mtt;AUTO_SERVER=TRUE;MODE=MySQL</mtt.jdbc.url>
+                                <mtt.jdbc.username>mtt</mtt.jdbc.username>
+                                <mtt.jdbc.password>mtt</mtt.jdbc.password>
+                                <!-- Important that emails are sent synchronously so we can capture in tests -->
+                                <mtt.emailSender.synchronous>true</mtt.emailSender.synchronous>
+                                <!--Set to 2500, as we start up Wiser to mock an SMTP server, runs on same port-->
+                                <mtt.mail.smtp.port>2500</mtt.mail.smtp.port>
+                            </systemProperties>
+                        </configuration>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run-war</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
-         <dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>core</artifactId>
         </dependency>
