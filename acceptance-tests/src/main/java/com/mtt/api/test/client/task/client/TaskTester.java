@@ -4,13 +4,13 @@ import com.mtt.api.test.client.task.response.TaskResponseValidator;
 
 public interface TaskTester {
 
-    TaskResponseValidator createTask();
+    TaskResponseValidator createTask() throws Exception;
 
-    TaskResponseValidator editTask(long id);
+    TaskResponseValidator editTask(long id) throws Exception;
 
-    TaskResponseValidator deleteTask(long id);
+    TaskResponseValidator deleteTask(long id) throws Exception;
 
-    TaskResponseValidator getTask(long id);
+    TaskResponseValidator getTask(long id) throws Exception;
 
     TaskTester withTitle(String title);
 

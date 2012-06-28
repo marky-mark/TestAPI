@@ -5,5 +5,5 @@
     <task id="1" checked="0" title="title 1" description="description 1" usr_id="1"/>
     <task id="2" checked="1" title="title 2" description="description 2" usr_id="1"/>
 
-    <api_key id="1" usr_id="1" access_key="66d4ad30f19511e0be500800200c9a66" private_key="a5e19380f19511e0be500800200c9a66"/>
+    <api_key id="1" usr_id="1" access_key="testApiUser1AccessKey" private_key="testApiUser1PrivateKey"/>
 </dataset>

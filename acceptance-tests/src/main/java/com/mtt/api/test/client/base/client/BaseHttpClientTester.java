@@ -1,5 +1,7 @@
 package com.mtt.api.test.client.base.client;
 
+import com.mtt.api.model.MTTApiKey;
+import com.mtt.api.test.client.TestUtils;
 import com.mtt.api.test.exception.TestExecutionException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -40,5 +42,18 @@ public class BaseHttpClientTester {
         } catch (Exception ex) {
             throw new TestExecutionException(ex);
         }
+    }
+
+    protected String secureUrl(String url, MTTApiKey key) throws Exception {
+        String timestamp = Long.toString(System.currentTimeMillis());
+        String signature = TestUtils.generateAuthenticationSignature(url,
+                key.getAccessKey(),
+                key.getPrivateKey(),
+                timestamp);
+
+        return TestUtils.createRequestPathWithSecurityParameters(url,
+                key.getAccessKey(),
+                timestamp,
+                signature);
     }
 }

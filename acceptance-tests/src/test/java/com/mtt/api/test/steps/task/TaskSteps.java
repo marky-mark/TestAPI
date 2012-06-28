@@ -66,7 +66,7 @@ public class TaskSteps {
     }
 
     @When("^the user tries to get the task$")
-    public void getTask() {
+    public void getTask() throws Exception {
         taskResponse = taskHttpClient.getTask(taskId);
     }
 

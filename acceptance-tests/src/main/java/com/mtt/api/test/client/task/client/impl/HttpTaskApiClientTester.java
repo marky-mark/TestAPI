@@ -1,5 +1,7 @@
 package com.mtt.api.test.client.task.client.impl;
 
+import com.mtt.api.model.MTTApiKey;
+import com.mtt.api.test.client.TestUtils;
 import com.mtt.api.test.client.base.client.BaseHttpClientTester;
 import com.mtt.api.test.client.task.client.TaskTester;
 import com.mtt.api.test.client.task.response.TaskResponseValidator;
@@ -15,8 +17,14 @@ import org.springframework.util.Assert;
 
 public class HttpTaskApiClientTester extends BaseHttpClientTester implements TaskTester {
 
+    MTTApiKey key;
+
     public HttpTaskApiClientTester(HttpHost host, DefaultHttpClient client) {
         super(host, client);
+
+        key = new MTTApiKey();
+        key.setAccessKey("testApiUser1AccessKey");
+        key.setPrivateKey("testApiUser1PrivateKey");
     }
 
     /**------------->Create
@@ -24,8 +32,8 @@ public class HttpTaskApiClientTester extends BaseHttpClientTester implements Tas
      * @return
      */
     @Override
-    public TaskResponseValidator createTask() {
-        String createTaskPath = "/api/task";
+    public TaskResponseValidator createTask() throws Exception {
+        String createTaskPath = secureUrl("/api/task", key);
         StringEntity content;
 
         try {
@@ -49,9 +57,9 @@ public class HttpTaskApiClientTester extends BaseHttpClientTester implements Tas
      * @return
      */
     @Override
-    public TaskResponseValidator editTask(long id) {
+    public TaskResponseValidator editTask(long id) throws Exception {
         Assert.notNull(id);
-        String editTaskPath = "/api/task/" + id;
+        String editTaskPath = secureUrl("/api/task/" + id, key);
 
         try {
             HttpPut editTask = new HttpPut(editTaskPath);
@@ -68,9 +76,9 @@ public class HttpTaskApiClientTester extends BaseHttpClientTester implements Tas
      * @return
      */
     @Override
-    public TaskResponseValidator deleteTask(long id) {
+    public TaskResponseValidator deleteTask(long id) throws Exception {
         Assert.notNull(id);
-        String deleteTaskPath = "/api/task/delete/" + id;
+        String deleteTaskPath = secureUrl("/api/task/delete/" + id, key);
 
         try {
             HttpPost deleteTask = new HttpPost(deleteTaskPath);
@@ -87,9 +95,10 @@ public class HttpTaskApiClientTester extends BaseHttpClientTester implements Tas
      * @return
      */
     @Override
-    public TaskResponseValidator getTask(long id) {
+    public TaskResponseValidator getTask(long id) throws Exception{
         Assert.notNull(id);
-        String getTaskPath = "/api/task/" + id;
+
+        String getTaskPath = secureUrl("/api/task/" + id, key);
 
         try {
             HttpGet getTask = new HttpGet(getTaskPath);
