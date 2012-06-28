@@ -12,6 +12,11 @@
 
     <context:component-scan base-package="com.mtt.api.test"/>
 
+    <bean id="apiHost" class="com.mtt.api.test.util.HttpHostFactoryBean">
+        <property name="hostname" value="${api.host.name:localhost}"/>
+        <property name="port" value="${api.host.port:8181}"/>
+    </bean>
+
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
