@@ -1,4 +1,4 @@
-package com.mtt.service.request;
+package com.mtt.api.model.request;
 
 import com.mtt.validation.NotHtml;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -14,7 +14,7 @@ public class CreateTaskRequest {
     private String title;
 
     @NotBlank(message = "task.description.blank")
-    @Size(min = 1, max = 100, message = "task.description.length")
+    @Size(min = 1, max = 100, message = "task.create.description.length")
     @NotHtml(message = "task.description.html")
     private String description;
 

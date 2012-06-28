@@ -5,16 +5,6 @@ import org.joda.time.DateTime;
 
 public interface TaskResponseValidator extends ResponseValidator {
 
-//    long getId();
-//
-//    long getUserId();
-//
-//    boolean isChecked();
-//
-//    String getTitle();
-//
-//    String getDescription();
-
     void assertId(long id);
 
     void assertUserEmail(String email);
@@ -26,4 +16,6 @@ public interface TaskResponseValidator extends ResponseValidator {
     void assertIsChecked(boolean isChecked);
 
     void assertCreatedDate(String dateTime);
+
+    void assertField(String field, String value);
 }

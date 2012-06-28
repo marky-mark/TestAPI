@@ -64,4 +64,15 @@ public class TaskResponseValidatorImpl extends DefaultResponseValidator implemen
         assertThat(statusNode, notNullValue());
         assertThat(statusNode.getTextValue(), equalTo(dateTime));
     }
+
+    @Override
+    public void assertField(String field, String value) {
+        JsonNode statusNode = getResponseBody().get(field);
+        assertThat(statusNode, notNullValue());
+
+        if (value.equals("false") || value.equals("true"))
+            assertThat(statusNode.getBooleanValue(), equalTo(new Boolean(value)));
+        else
+            assertThat(statusNode.getTextValue(), equalTo(value));
+    }
 }

@@ -19,4 +19,6 @@ public interface ResponseValidator {
     void assertBodyContainsFieldError(String fieldName);
 
     void assertBodyContainsMessageCode(String messageCode);
+
+    public void assertBodyContainsFieldError(String fieldName, String msg);
 }

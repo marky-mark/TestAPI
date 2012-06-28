@@ -63,7 +63,7 @@ public class DefaultResponseValidator implements ResponseValidator {
     @Override
     public void assertBodyContainsErrorCode(String errorCode) {
         JsonNode errorCodeNode = responseBody.get("error_code");
-        assertThat(errorCodeNode.getValueAsText(), equalTo(errorCode));
+        assertThat(errorCodeNode.getTextValue(), equalTo(errorCode));
     }
 
     @Override
@@ -74,8 +74,25 @@ public class DefaultResponseValidator implements ResponseValidator {
         ArrayNode errorsNode = (ArrayNode) node;
         for (JsonNode errorNode : errorsNode) {
             JsonNode fieldNameNode = errorNode.findPath("field");
-            if (fieldNameNode.getValueAsText().equals(fieldName)) {
+            if (fieldNameNode.getTextValue().equals(fieldName)) {
                 foundError = true;
+                break;
+            }
+        }
+        assertThat(foundError, equalTo(true));
+    }
+
+    @Override
+    public void assertBodyContainsFieldError(String fieldName, String msg) {
+        boolean foundError = false;
+        JsonNode node = responseBody.get("errors");
+        assertThat(node, instanceOf(ArrayNode.class));
+        ArrayNode errorsNode = (ArrayNode) node;
+        for (JsonNode errorNode : errorsNode) {
+            JsonNode fieldNameNode = errorNode.findPath("field");
+            if (fieldNameNode.getTextValue().equals(fieldName)) {
+                foundError = true;
+                assertThat(errorNode.findPath("message_code").getTextValue(), equalTo(msg));
                 break;
             }
         }
@@ -90,7 +107,7 @@ public class DefaultResponseValidator implements ResponseValidator {
         ArrayNode errorsNode = (ArrayNode) node;
         for (JsonNode errorNode : errorsNode) {
             JsonNode messageCodeNode = errorNode.findPath("message_code");
-            if (messageCodeNode.getValueAsText().equals(messageCode)) {
+            if (messageCodeNode.getTextValue().equals(messageCode)) {
                 foundCode = true;
                 break;
             }
